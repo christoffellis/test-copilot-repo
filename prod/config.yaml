@@ -1,0 +1,80 @@
+# /c:/dev/test-copilot-repo/prod/config.yaml
+environment: prod
+
+app:
+  name: test-app
+  host: prod.example.local
+  port: 443
+  url: "https://prod.example.local"               # prod URL
+  api_url: "https://prod-api.example.local"        # prod API URL
+  admin_url: "https://prod-admin.example.local"    # prod admin URL
+  asset_host: "https://prod-cdn.example.local"
+
+unsafe_for_prod:
+  DEBUG: false
+  ALLOW_HTTP: false
+  SKIP_SSL_VERIFY: false
+  ENABLE_SQL_LOGGING: false
+  SEED_DEMO_DATA: false
+  RELAXED_CSP: false
+
+database:
+  adapter: postgresql
+  host: db.prod.example.local
+  port: 5432
+  name: prod_db
+  user: prod_user
+  password: prod_password                  # placeholder; rotate before prod
+  connection: "postgresql://prod_user:prod_password@db.prod.example.local:5432/prod_db?sslmode=require"
+
+redis:
+  url: "redis://redis.prod.example.local:6379/0"
+  password: "REDIS_prod_PASSWORD"                            # placeholder
+
+secrets:
+  jwt_secret: "changeme-prod-secret"       # rotate before prod
+  encryption_key: "22222222222222222222222222222222"  # placeholder
+
+aws:
+  region: us-east-1
+  s3_bucket: "prod-test-bucket"
+  access_key: "prod_AWS_ACCESS_KEY"
+  secret_key: "prod_AWS_SECRET_KEY"
+  s3_endpoint: "https://s3-prod.example.local"
+
+smtp:
+  host: "smtp.prod.example.local"
+  port: 587
+  user: ""
+  password: ""
+  tls: true
+
+oauth:
+  google:
+    client_id: "UAT_GOOGLE_CLIENT_ID"
+    client_secret: "UAT_GOOGLE_CLIENT_SECRET"
+    redirect_uri: "https://uat.example.local/auth/google/callback"
+  github:
+    client_id: "UAT_GITHUB_CLIENT_ID"
+    client_secret: "UAT_GITHUB_CLIENT_SECRET"
+    redirect_uri: "https://uat.example.local/auth/github/callback"
+
+security:
+  csrf_protection: true
+  cors_allowed_origins:
+    - "https://uat.example.local"
+  content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-inline';"
+  password_policy:
+    min_length: 10
+    require_special: true
+
+logging:
+  level: warn
+  format: json
+  enable_stack_traces: false
+  log_to_file: true
+
+features:
+  new_checkout: true
+  payment_sandbox_mode: false
+  enable_beta_banner: false
