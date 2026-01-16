@@ -95,8 +95,8 @@ Appropriate logging levels by environment:
 - Debug mode enabled in sit/uat
 
 ❌ **Inconsistent naming**:
-- Database names should follow pattern: `{env}_db`
-- S3 buckets should follow pattern: `{env}-test-bucket`
+- Database names should follow pattern: `{env}_db` (underscores per SQL conventions)
+- S3 buckets should follow pattern: `{env}-test-bucket` (hyphens per AWS conventions)
 - OAuth redirect URIs must match the environment's domain
 
 ❌ **Security downgrades**:
