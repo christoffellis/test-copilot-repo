@@ -80,3 +80,7 @@ features:
   payment_sandbox_mode: true
   enable_beta_banner: false
 
+ci:
+  auto_apply_migrations: true
+  deploy_target: dev
+  notify_on_failure: false

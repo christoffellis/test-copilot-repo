@@ -78,3 +78,8 @@ features:
   new_checkout: true
   payment_sandbox_mode: false
   enable_beta_banner: false
+
+ci:
+  auto_apply_migrations: true
+  deploy_target: uat
+  notify_on_failure: false
