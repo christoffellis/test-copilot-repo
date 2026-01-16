@@ -1,0 +1,90 @@
+# /c:/dev/test-copilot-repo/dev/config.yaml
+environment: development
+
+app:
+  name: test-app
+  host: dev.example.local
+  port: 3000
+  url: "http://dev.example.local:3000"               # DEV URL
+  api_url: "http://dev-api.example.local:8000"        # DEV API URL
+  admin_url: "http://dev-admin.example.local:8080"    # DEV admin URL
+  asset_host: "http://dev-cdn.example.local"
+
+unsafe_for_prod:
+  DEBUG: true                    # must be false in prod
+  ALLOW_HTTP: true               # insecure for production
+  SKIP_SSL_VERIFY: true          # disables TLS verification
+  ENABLE_SQL_LOGGING: true       # verbose SQL logs (sensitive)
+  SEED_DEMO_DATA: true           # seeds non-prod test data
+  RELAXED_CSP: true
+
+database:
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  name: dev_db
+  user: dev_user
+  password: dev_password                  # placeholder; do NOT use in prod
+  connection: "postgresql://dev_user:dev_password@localhost:5432/dev_db?sslmode=disable"
+
+redis:
+  url: "redis://localhost:6379/0"
+  password: ""                            # empty for local dev (unsafe for prod)
+
+secrets:
+  jwt_secret: "changeme-dev-secret"       # rotate before prod
+  encryption_key: "00000000000000000000000000000000"  # dev-only placeholder
+
+aws:
+  region: us-east-1
+  s3_bucket: "dev-test-bucket"
+  access_key: "DEV_AWS_ACCESS_KEY"
+  secret_key: "DEV_AWS_SECRET_KEY"
+  s3_endpoint: "http://s3-dev.example.local"  # local S3-compatible endpoint
+
+smtp:
+  host: "smtp.dev.example.local"
+  port: 1025                   # MailHog/Mailcatcher typical dev port
+  user: ""
+  password: ""
+  tls: false                   # allow insecure SMTP in dev
+
+oauth:
+  google:
+    client_id: "DEV_GOOGLE_CLIENT_ID"
+    client_secret: "DEV_GOOGLE_CLIENT_SECRET"
+    redirect_uri: "http://dev.example.local:3000/auth/google/callback"
+  github:
+    client_id: "DEV_GITHUB_CLIENT_ID"
+    client_secret: "DEV_GITHUB_CLIENT_SECRET"
+    redirect_uri: "http://dev.example.local:3000/auth/github/callback"
+
+security:
+  csrf_protection: false       # disabled in dev
+  cors_allowed_origins:
+    - "http://dev.example.local:3000"
+    - "http://localhost:3000"
+  content_security_policy: "default-src * 'unsafe-inline' 'unsafe-eval';"  # relaxed for dev
+  password_policy:
+    min_length: 6
+    require_special: false
+
+logging:
+  level: debug
+  format: json
+  enable_stack_traces: true
+  log_to_file: false
+
+features:
+  new_checkout: true
+  payment_sandbox_mode: true
+  enable_beta_banner: true
+
+ci:
+  auto_apply_migrations: true
+  deploy_target: dev
+  notify_on_failure: false
+
+notes:
+  - "This file is for local development only. DO NOT use these settings in production."
+  - "Replace all placeholder secrets with secure values and turn off unsafe flags before deploying."

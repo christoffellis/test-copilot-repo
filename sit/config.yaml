@@ -1,0 +1,82 @@
+# /c:/dev/test-copilot-repo/sit/config.yaml
+environment: sit
+
+app:
+  name: test-app
+  host: sit.example.local
+  port: 3000
+  url: "https://sit.example.local:3000"               # SIT URL
+  api_url: "https://sit-api.example.local:8000"        # SIT API URL
+  admin_url: "https://sit-admin.example.local:8080"    # SIT admin URL
+  asset_host: "https://sit-cdn.example.local"
+
+unsafe_for_prod:
+  DEBUG: false
+  ALLOW_HTTP: false
+  SKIP_SSL_VERIFY: false
+  ENABLE_SQL_LOGGING: false
+  SEED_DEMO_DATA: false
+  RELAXED_CSP: false
+
+database:
+  adapter: postgresql
+  host: db.sit.example.local
+  port: 5432
+  name: sit_db
+  user: sit_user
+  password: sit_password                  # placeholder; rotate before prod
+  connection: "postgresql://sit_user:sit_password@db.sit.example.local:5432/sit_db?sslmode=require"
+
+redis:
+  url: "redis://redis.sit.example.local:6379/0"
+  password: "REDIS_SIT_PASSWORD"                            # placeholder
+
+secrets:
+  jwt_secret: "changeme-sit-secret"       # rotate before prod
+  encryption_key: "11111111111111111111111111111111"  # placeholder
+
+aws:
+  region: us-east-1
+  s3_bucket: "sit-test-bucket"
+  access_key: "SIT_AWS_ACCESS_KEY"
+  secret_key: "SIT_AWS_SECRET_KEY"
+  s3_endpoint: "https://s3-sit.example.local"
+
+smtp:
+  host: "smtp.sit.example.local"
+  port: 587
+  user: ""
+  password: ""
+  tls: true
+
+oauth:
+  google:
+    client_id: "SIT_GOOGLE_CLIENT_ID"
+    client_secret: "SIT_GOOGLE_CLIENT_SECRET"
+    redirect_uri: "https://sit.example.local:3000/auth/google/callback"
+  github:
+    client_id: "SIT_GITHUB_CLIENT_ID"
+    client_secret: "SIT_GITHUB_CLIENT_SECRET"
+    redirect_uri: "https://sit.example.local:3000/auth/github/callback"
+
+security:
+  csrf_protection: true
+  cors_allowed_origins:
+    - "https://sit.example.local:3000"
+    - "https://sit.example.local"
+  content_security_policy: "default-src 'self';"
+  password_policy:
+    min_length: 8
+    require_special: true
+
+logging:
+  level: info
+  format: json
+  enable_stack_traces: false
+  log_to_file: true
+
+features:
+  new_checkout: true
+  payment_sandbox_mode: true
+  enable_beta_banner: false
+
