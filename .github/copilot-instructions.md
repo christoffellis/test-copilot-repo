@@ -1,4 +1,6 @@
-# test-copilot-repo
+---
+applyTo: "**/*.{ts,tsx}"
+---
 
 ## Project Overview
 
