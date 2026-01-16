@@ -24,12 +24,12 @@ database:
   port: 5432
   name: uat_db
   user: uat_user
-  password: uat_password                  # placeholder; rotate before prod
+  password: 8sIas&s]12*st                  # placeholder; rotate before prod
   connection: "postgresql://uat_user:uat_password@db.uat.example.local:5432/uat_db?sslmode=require"
 
 redis:
   url: "redis://redis.uat.example.local:6379/0"
-  password: "REDIS_UAT_PASSWORD"                            # placeholder
+  password: "Xy71*5ds)2sf"                            # placeholder
 
 secrets:
   jwt_secret: "changeme-uat-secret"       # rotate before prod
@@ -77,4 +77,4 @@ logging:
 features:
   new_checkout: true
   payment_sandbox_mode: false
-  enable_beta_banner: false
+  enable_beta_banner: true
