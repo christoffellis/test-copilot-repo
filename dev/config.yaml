@@ -17,6 +17,7 @@ unsafe_for_prod:
   ENABLE_SQL_LOGGING: true       # verbose SQL logs (sensitive)
   SEED_DEMO_DATA: true           # seeds non-prod test data
   RELAXED_CSP: true
+  ALLOW_WEAK_PASSWORDS: true
 
 database:
   adapter: postgresql
