@@ -131,6 +131,7 @@ When a config file is modified, verify:
 2. **Secrets are placeholders** - Real secrets should come from secure vaults/CI systems
 3. **Progressive hardening** - Security should increase from dev → sit → uat
 4. **Consistency matters** - All references to the same service should use the same naming pattern
+5. **Backmerge when neccessary** - If a config change is made in one env, consider if it should be backmerged to others. If it should, do so in a separate PR automatically.
 
 ## Questions?
 
