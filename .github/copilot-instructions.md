@@ -138,3 +138,55 @@ If you're unsure whether a config change is appropriate, consider:
 - Does this change make the environment less secure without justification?
 - Are environment-specific values correctly scoped to their folder?
 - Would this configuration be safe if it were promoted to production?
+
+## Assistant Targets
+
+These instructions are intended for both GitHub Copilot and Amazon Q (Code Review/PR comments). Where behavior differs, see the notes below.
+
+## Amazon Q Notes
+
+- Review scope: Only comment on files/lines that are part of the diff. Do not flag issues in other environment folders unless those files are modified in the PR.
+- Environment inference: Infer the target environment(s) from the changed file paths, e.g., changes under `dev/`, `sit/`, `uat/`. If only `uat/` files are changed, treat the PR as UAT-scoped.
+- PR intent signals: Also consider PR title/description and branch names containing `dev`, `sit`, or `uat`. Use these as hints, but the changed paths are authoritative.
+- Cross-env issues: If you detect issues in a different environment not touched by the PR, do not create blocking comments. At most, leave a single optional FYI summary in a non-blocking general comment, clearly marked as out-of-scope.
+- Confidence & severity: Do not suppress high-severity security misconfigurations within the changed files. Use high confidence for violations of the rules in this document. Avoid low-confidence noise on untouched files.
+- Suggestion style: When flagging a mismatch (e.g., password vs connection string), include a minimal, precise fix that references the exact key path(s) and environment folder.
+
+## Env-Aware Review Scope
+
+When reviewing a PR, first determine the environments actually touched by the diff and apply the rules below accordingly.
+
+- Scope to changed envs: If only `uat/` files are changed, limit comments to `uat/`. Do not block on `dev/`/`sit/` issues unless those files/lines are changed in this PR.
+- Cross-file checks within env: It is appropriate to compare related values within the same environment (e.g., `uat/` password vs `uat/` connection string) and flag mismatches.
+- Cross-env parity: Do not require parity across environments in the same PR unless the PR changes those environments. If parity is important, add a single non-blocking note with a concrete follow-up suggestion.
+- New env folders: If a new environment directory is introduced (e.g., `qa/`), validate completeness against the schema below and the hardening progression, and provide a concise checklist of missing/incorrect keys.
+
+### Env Change Detection Heuristics
+
+- Primary: Paths of changed files (e.g., `uat/config.yaml`).
+- Secondary: PR title/description and branch naming (e.g., `feature/uat-…`).
+- Rule: If signals disagree, paths of changed files win.
+
+### Minimal Schema Checklist (per env/config.yaml)
+
+Require presence and correct values per environment maturity; flag missing keys or misaligned values:
+
+- `environment`: Must equal folder name (`dev`, `sit`, `uat`).
+- URLs/hosts: Env-specific domain and protocol per rules above.
+- `unsafe_for_prod` block: All keys present; values match the matrix.
+- Security: `csrf_protection`, `tls`, DB `sslmode`, CORS origins restricted to env domain.
+- Password policy: Matches environment progression.
+- Logging: Level and `enable_stack_traces` correct.
+- Feature flags: Especially `payment_sandbox_mode` set per env.
+- DB connection string: Matches discrete fields (host, db name `{env}_db`, user, password, ssl settings) and is consistent with any separately declared password.
+
+### Commenting Policy Examples
+
+- UAT-only PR with a `sit/` localhost issue unchanged: Do not comment on the `sit/` file. Optionally add a single non-blocking general FYI noting the finding is out-of-scope for this PR.
+- UAT PR where `uat/` password updated but connection string not updated: Leave a blocking comment on `uat/config.yaml` with a concrete fix to update the connection string password.
+
+### Example Fix Suggestion (mismatch within same env)
+
+"The database connection string in `uat/config.yaml` uses the old password while `database.password` is updated. Update the connection string to use the new password to avoid connection failures."
+
+Provide the corrected connection string segment inline if feasible.
