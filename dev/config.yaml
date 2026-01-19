@@ -79,6 +79,11 @@ features:
   new_checkout: true
   payment_sandbox_mode: true
   enable_beta_banner: true
+  
+newConfigs: 
+  feature_toggle_service_url: "https://uat-feature-toggle.example.local"
+  monitoring_service_url: "https://uat-monitoring.example.local"
+  error_tracking_dsn: "https://uat-error-tracking.example.local/dsn"
 
 ci:
   auto_apply_migrations: true
