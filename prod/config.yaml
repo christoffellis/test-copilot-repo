@@ -78,3 +78,6 @@ features:
   new_checkout: true
   payment_sandbox_mode: false
   enable_beta_banner: false
+
+paymentConfig:
+  bankBIC: "SBZAZAJ0"
