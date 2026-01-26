@@ -132,6 +132,7 @@ When a config file is modified, verify:
 3. **Progressive hardening** - Security should increase from dev → sit → uat
 4. **Consistency matters** - All references to the same service should use the same naming pattern
 5. **Backmerge when neccessary** - If a config change is made in one env, consider if it should be backmerged to others. If it should, do so in a separate PR automatically.
+6. **Test identifiers** - This project commonly uses real-world-like identifiers as test placeholders (e.g., IBAN-like strings, test emails, account numbers). Do not raise alarms for reasonable testing values found in `dev/`, `sit/`, or PR diffs (within reason). However, if apparent production credentials or identifiers appear in `sit/` or `uat/`, or a value in a production-scoped file looks like a real, incorrect production value, flag it and suggest a safe replacement or placeholder.
 
 ## Questions?
 
