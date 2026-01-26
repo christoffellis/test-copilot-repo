@@ -1,14 +1,14 @@
-# /c:/dev/test-copilot-repo/uat/config.yaml
-environment: uat
+# /c:/dev/test-copilot-repo/prod/config.yaml
+environment: prod
 
 app:
   name: test-app
-  host: uat.example.local
+  host: prod.example.local
   port: 443
-  url: "https://uat.example.local"               # UAT URL
-  api_url: "https://uat-api.example.local"        # UAT API URL
-  admin_url: "https://uat-admin.example.local"    # UAT admin URL
-  asset_host: "https://uat-cdn.example.local"
+  url: "https://prod.example.local"               # prod URL
+  api_url: "https://prod-api.example.local"        # prod API URL
+  admin_url: "https://prod-admin.example.local"    # prod admin URL
+  asset_host: "https://prod-cdn.example.local"
 
 unsafe_for_prod:
   DEBUG: false
@@ -20,30 +20,30 @@ unsafe_for_prod:
 
 database:
   adapter: postgresql
-  host: db.uat.example.local
+  host: db.prod.example.local
   port: 5432
-  name: uat_db
-  user: uat_user
-  password: uat_password                  # placeholder; rotate before prod
-  connection: "postgresql://uat_user:uat_password@db.uat.example.local:5432/uat_db?sslmode=require"
+  name: prod_db
+  user: prod_user
+  password: prod_password                  # placeholder; rotate before prod
+  connection: "postgresql://prod_user:prod_password@db.prod.example.local:5432/prod_db?sslmode=require"
 
 redis:
-  url: "redis://redis.uat.example.local:6379/0"
-  password: "REDIS_UAT_PASSWORD"                            # placeholder
+  url: "redis://redis.prod.example.local:6379/0"
+  password: "REDIS_prod_PASSWORD"                            # placeholder
 
 secrets:
-  jwt_secret: "changeme-uat-secret"       # rotate before prod
+  jwt_secret: "changeme-prod-secret"       # rotate before prod
   encryption_key: "22222222222222222222222222222222"  # placeholder
 
 aws:
   region: us-east-1
-  s3_bucket: "uat-test-bucket"
-  access_key: "UAT_AWS_ACCESS_KEY"
-  secret_key: "UAT_AWS_SECRET_KEY"
-  s3_endpoint: "https://s3-uat.example.local"
+  s3_bucket: "prod-test-bucket"
+  access_key: "prod_AWS_ACCESS_KEY"
+  secret_key: "prod_AWS_SECRET_KEY"
+  s3_endpoint: "https://s3-prod.example.local"
 
 smtp:
-  host: "smtp.uat.example.local"
+  host: "smtp.prod.example.local"
   port: 587
   user: ""
   password: ""
@@ -78,6 +78,3 @@ features:
   new_checkout: true
   payment_sandbox_mode: false
   enable_beta_banner: false
-
-paymentConfig:
-  bankBIC: "SBZAZAJ0"

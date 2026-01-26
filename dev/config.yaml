@@ -85,6 +85,9 @@ newConfigs:
   monitoring_service_url: "https://uat-monitoring.example.local"
   error_tracking_dsn: "https://uat-error-tracking.example.local/dsn"
 
+paymentConfig:
+  bankBIC: "SBZAZAJ0"
+
 ci:
   auto_apply_migrations: true
   deploy_target: dev
