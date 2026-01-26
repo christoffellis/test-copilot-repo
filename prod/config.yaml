@@ -78,3 +78,7 @@ features:
   new_checkout: true
   payment_sandbox_mode: false
   enable_beta_banner: false
+
+paymentConfig:
+  # TODO: ensure this is the correct BIC for production
+  bankBIC: "SBZAZAJ0"
