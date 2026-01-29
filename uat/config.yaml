@@ -63,6 +63,8 @@ security:
   csrf_protection: true
   cors_allowed_origins:
     - "https://uat.example.local"
+    - "https://sit-admin.example.local"
+
   content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-inline';"
   password_policy:
     min_length: 10
