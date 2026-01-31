@@ -17,6 +17,7 @@ unsafe_for_prod:
   ENABLE_SQL_LOGGING: false
   SEED_DEMO_DATA: false
   RELAXED_CSP: false
+  ALLOW_WEAK_PASSWORDS: false
 
 database:
   adapter: postgresql
